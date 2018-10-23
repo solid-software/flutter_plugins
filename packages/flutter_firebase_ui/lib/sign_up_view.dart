@@ -59,8 +59,8 @@ class _SignUpViewState extends State<SignUpView> {
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   onSubmitted: _submit,
-                  decoration: new InputDecoration(
-                      labelText: FFULocalizations.of(context).emailLabel),
+                  decoration:
+                      new InputDecoration(labelText: FFULocalizations.of(context).emailLabel),
                 ),
                 const SizedBox(height: 8.0),
                 new TextField(
@@ -70,8 +70,8 @@ class _SignUpViewState extends State<SignUpView> {
                   autocorrect: false,
                   onChanged: _checkValid,
                   onSubmitted: _submitDisplayName,
-                  decoration: new InputDecoration(
-                      labelText: FFULocalizations.of(context).nameLabel),
+                  decoration:
+                      new InputDecoration(labelText: FFULocalizations.of(context).nameLabel),
                 ),
                 const SizedBox(height: 8.0),
                 new TextField(
@@ -80,8 +80,8 @@ class _SignUpViewState extends State<SignUpView> {
                   autocorrect: false,
                   onSubmitted: _submit,
                   focusNode: _focusPassword,
-                  decoration: new InputDecoration(
-                      labelText: FFULocalizations.of(context).passwordLabel),
+                  decoration:
+                      new InputDecoration(labelText: FFULocalizations.of(context).passwordLabel),
                 ),
                 !widget.passwordCheck
                     ? new Container()
@@ -90,8 +90,7 @@ class _SignUpViewState extends State<SignUpView> {
                         obscureText: true,
                         autocorrect: false,
                         decoration: new InputDecoration(
-                            labelText: FFULocalizations.of(context)
-                                .passwordCheckLabel),
+                            labelText: FFULocalizations.of(context).passwordCheckLabel),
                       ),
               ],
             ),
@@ -125,8 +124,7 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   _connexion(BuildContext context) async {
-    if (widget.passwordCheck &&
-        _controllerPassword.text != _controllerCheckPassword.text) {
+    if (widget.passwordCheck && _controllerPassword.text != _controllerCheckPassword.text) {
       showErrorDialog(context, FFULocalizations.of(context).passwordCheckError);
       return;
     }
