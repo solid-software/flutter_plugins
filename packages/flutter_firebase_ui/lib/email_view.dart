@@ -16,6 +16,7 @@ class EmailView extends StatefulWidget {
 }
 
 class _EmailViewState extends State<EmailView> {
+  bool isSubmittingInAction = false;
   final TextEditingController _controllerEmail = new TextEditingController();
 
   @override
@@ -36,8 +37,8 @@ class _EmailViewState extends State<EmailView> {
                     onSubmitted: _submit,
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
-                    decoration: new InputDecoration(
-                        labelText: FFULocalizations.of(context).emailLabel),
+                    decoration:
+                        new InputDecoration(labelText: FFULocalizations.of(context).emailLabel),
                   ),
                 ],
               ),
@@ -66,39 +67,41 @@ class _EmailViewState extends State<EmailView> {
   }
 
   _connexion(BuildContext context) async {
-    try {
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      List<String> providers =
-          await auth.fetchProvidersForEmail(email: _controllerEmail.text);
-      print(providers);
+    if (!isSubmittingInAction) {
+      isSubmittingInAction = true;
+      try {
+        final FirebaseAuth auth = FirebaseAuth.instance;
+        List<String> providers = await auth.fetchProvidersForEmail(email: _controllerEmail.text);
+        print(providers);
 
-      if (providers == null || providers.isEmpty) {
-        bool connected = await Navigator.of(context)
-            .push(new MaterialPageRoute<bool>(builder: (BuildContext context) {
-          return new SignUpView(_controllerEmail.text, widget.passwordCheck);
-        }));
+        if (providers == null || providers.isEmpty) {
+          bool connected = await Navigator.of(context)
+              .push(new MaterialPageRoute<bool>(builder: (BuildContext context) {
+            return new SignUpView(_controllerEmail.text, widget.passwordCheck);
+          }));
 
-        if (connected) {
-          Navigator.pop(context);
-        }
-      } else if (providers.contains('password')) {
-        bool connected = await Navigator.of(context)
-            .push(new MaterialPageRoute<bool>(builder: (BuildContext context) {
-          return new PasswordView(_controllerEmail.text);
-        }));
+          if (connected) {
+            Navigator.pop(context);
+          }
+        } else if (providers.contains('password')) {
+          bool connected = await Navigator.of(context)
+              .push(new MaterialPageRoute<bool>(builder: (BuildContext context) {
+            return new PasswordView(_controllerEmail.text);
+          }));
 
-        if (connected) {
-          Navigator.pop(context);
+          if (connected) {
+            Navigator.pop(context);
+          }
+        } else {
+          String provider = await _showDialogSelectOtherProvider(_controllerEmail.text, providers);
+          if (provider.isNotEmpty) {
+            Navigator.pop(context, provider);
+          }
         }
-      } else {
-        String provider = await _showDialogSelectOtherProvider(
-            _controllerEmail.text, providers);
-        if (provider.isNotEmpty) {
-          Navigator.pop(context, provider);
-        }
+      } catch (exception) {
+        print(exception);
       }
-    } catch (exception) {
-      print(exception);
+      isSubmittingInAction = false;
     }
   }
 
@@ -111,8 +114,7 @@ class _EmailViewState extends State<EmailView> {
             content: new SingleChildScrollView(
                 child: new ListBody(
               children: <Widget>[
-                new Text(FFULocalizations.of(context)
-                    .allReadyEmailMessage(email, providerName)),
+                new Text(FFULocalizations.of(context).allReadyEmailMessage(email, providerName)),
                 new SizedBox(
                   height: 16.0,
                 ),

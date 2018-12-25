@@ -16,6 +16,7 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  bool isSubmittingInAction = false;
   TextEditingController _controllerEmail;
   TextEditingController _controllerDisplayName;
   TextEditingController _controllerPassword;
@@ -124,30 +125,34 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   _connexion(BuildContext context) async {
-    if (widget.passwordCheck && _controllerPassword.text != _controllerCheckPassword.text) {
-      showErrorDialog(context, FFULocalizations.of(context).passwordCheckError);
-      return;
-    }
-
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    try {
-      FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-        email: _controllerEmail.text,
-        password: _controllerPassword.text,
-      );
-      try {
-        var userUpdateInfo = new UserUpdateInfo();
-        userUpdateInfo.displayName = _controllerDisplayName.text;
-        await user.updateProfile(userUpdateInfo);
-        Navigator.pop(context, true);
-      } catch (e) {
-        showErrorDialog(context, e.details);
+    if (!isSubmittingInAction) {
+      isSubmittingInAction = true;
+      if (widget.passwordCheck && _controllerPassword.text != _controllerCheckPassword.text) {
+        showErrorDialog(context, FFULocalizations.of(context).passwordCheckError);
+        return;
       }
-    } on PlatformException catch (e) {
-      print(e.details);
-      //TODO improve errors catching
-      String msg = FFULocalizations.of(context).passwordLengthMessage;
-      showErrorDialog(context, msg);
+
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      try {
+        FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+          email: _controllerEmail.text,
+          password: _controllerPassword.text,
+        );
+        try {
+          var userUpdateInfo = new UserUpdateInfo();
+          userUpdateInfo.displayName = _controllerDisplayName.text;
+          await user.updateProfile(userUpdateInfo);
+          Navigator.pop(context, true);
+        } catch (e) {
+          showErrorDialog(context, e.details);
+        }
+      } on PlatformException catch (e) {
+        print(e.details);
+        //TODO improve errors catching
+        String msg = FFULocalizations.of(context).passwordLengthMessage;
+        showErrorDialog(context, msg);
+      }
+      isSubmittingInAction = false;
     }
   }
 
