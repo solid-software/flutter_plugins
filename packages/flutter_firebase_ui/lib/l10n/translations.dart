@@ -200,7 +200,7 @@ Sign in with $providerName to continue.''';
 
   String get passwordLengthMessage => r'The password must be 6 characters long or more';
 
-  String get emailIsNotValid => r'Die E-Mail-adresse ist nicht gültig';
+  String get emailIsNotValid => r'The email adress is not valid';
 
   @override
   String get signInFacebook => r'Sign in with Facebook';
@@ -280,7 +280,7 @@ Mit $providerName anmelden um fortzufarhen.''';
 
   String get passwordLengthMessage => r'Das Passwort muss 6 oder mehr Zeichen haben';
 
-  String get emailIsNotValid => r"L'adresse email n'est pas valide";
+  String get emailIsNotValid => r"Die E-Mail-Adresse ist nicht gültig";
 
   @override
   String get signInFacebook => r'Mit Facebook anmelden';
