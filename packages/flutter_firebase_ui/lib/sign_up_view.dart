@@ -125,7 +125,7 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   _connexion(BuildContext context) async {
-    if (!isSubmittingInAction) {
+    if (!isSubmittingInAction && _valid) {
       isSubmittingInAction = true;
       if (widget.passwordCheck && _controllerPassword.text != _controllerCheckPassword.text) {
         showErrorDialog(context, FFULocalizations.of(context).passwordCheckError);
