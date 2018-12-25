@@ -147,9 +147,15 @@ class _SignUpViewState extends State<SignUpView> {
           showErrorDialog(context, e.details);
         }
       } on PlatformException catch (e) {
+        String msg;
+        if (e.details == "The email address is badly formatted.") {
+          msg = FFULocalizations.of(context).emailIsNotValid;
+        } else {
+          msg = FFULocalizations.of(context).passwordLengthMessage;
+        }
         print(e.details);
         //TODO improve errors catching
-        String msg = FFULocalizations.of(context).passwordLengthMessage;
+
         showErrorDialog(context, msg);
       }
       isSubmittingInAction = false;

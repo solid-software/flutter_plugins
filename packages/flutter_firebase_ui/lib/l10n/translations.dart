@@ -38,6 +38,8 @@ class TranslationBundle {
 
   String get passwordLengthMessage => parent?.passwordLengthMessage;
 
+  String get emailIsNotValid => parent?.emailIsNotValid;
+
   String get signInFacebook => parent?.signInFacebook;
   String get signInGoogle => parent?.signInGoogle;
   String get signInEmail => parent?.signInEmail;
@@ -113,12 +115,12 @@ Connectez-vous avec $providerName pour continuer.''';
 
   @override
   recoverDialog(String email) {
-    return 'Suivez les instructions envoyées à $email ' +
-        'pour retrouver votre mot de passe';
+    return 'Suivez les instructions envoyées à $email ' + 'pour retrouver votre mot de passe';
   }
 
-  String get passwordLengthMessage =>
-      r'Le mot de passe doit comporter 6 caractères ou plus';
+  String get passwordLengthMessage => r'Le mot de passe doit comporter 6 caractères ou plus';
+
+  String get emailIsNotValid => r"L'adresse email n'est pas valide";
 
   @override
   String get signInFacebook => r'Connexion avec Facebook';
@@ -174,8 +176,7 @@ class _Bundle_en extends TranslationBundle {
 
   @override
   String get recoverHelpLabel =>
-      r'Get instructions sent to this email ' +
-      'that explain how to reset your password';
+      r'Get instructions sent to this email ' + 'that explain how to reset your password';
 
   @override
   String get sendButtonLabel => r'SEND';
@@ -197,8 +198,9 @@ Sign in with $providerName to continue.''';
     return 'Follow the instructions sent to $email to recover your password';
   }
 
-  String get passwordLengthMessage =>
-      r'The password must be 6 characters long or more';
+  String get passwordLengthMessage => r'The password must be 6 characters long or more';
+
+  String get emailIsNotValid => r'Die E-Mail-adresse ist nicht gültig';
 
   @override
   String get signInFacebook => r'Sign in with Facebook';
@@ -254,8 +256,7 @@ class _Bundle_de extends TranslationBundle {
 
   @override
   String get recoverHelpLabel =>
-      r'Erhalte Anweisungen zum Wiederherstellen des Passworts ' +
-      'an diese Email';
+      r'Erhalte Anweisungen zum Wiederherstellen des Passworts ' + 'an diese Email';
 
   @override
   String get sendButtonLabel => r'SENDEN';
@@ -277,8 +278,9 @@ Mit $providerName anmelden um fortzufarhen.''';
     return 'Befolge die Anweisungen, welche an $email gesendet wurden um das Passswort wiederherzustellen';
   }
 
-  String get passwordLengthMessage =>
-      r'Das Passwort muss 6 oder mehr Zeichen haben';
+  String get passwordLengthMessage => r'Das Passwort muss 6 oder mehr Zeichen haben';
+
+  String get emailIsNotValid => r"L'adresse email n'est pas valide";
 
   @override
   String get signInFacebook => r'Mit Facebook anmelden';
@@ -326,16 +328,14 @@ class _Bundle_pt extends TranslationBundle {
   String get troubleSigningInLabel => 'Problemas ao fazer login ?';
 
   @override
-  String get passwordInvalidMessage =>
-      'A senha é inválida ou o usuário não possui uma senha.';
+  String get passwordInvalidMessage => 'A senha é inválida ou o usuário não possui uma senha.';
 
   @override
   String get recoverPasswordTitle => r'Recuperar a senha';
 
   @override
   String get recoverHelpLabel =>
-      r'Siga as instruções enviadas para esse e-mail ' +
-      'para descobrir como redefinir sua senha';
+      r'Siga as instruções enviadas para esse e-mail ' + 'para descobrir como redefinir sua senha';
 
   @override
   String get sendButtonLabel => r'ENVIAR';
@@ -357,8 +357,8 @@ Faça login com o $providerName para continuar.''';
     return 'Siga as instruções enviadas para $email para recuperar sua senha';
   }
 
-  String get passwordLengthMessage =>
-      r'A senha deve ter pelo menos 6 caracteres';
+  String get passwordLengthMessage => r'A senha deve ter pelo menos 6 caracteres';
+  String get emailIsNotValid => r'O endereço de e-mail não é válido';
 
   @override
   String get signInFacebook => r'Login com o Facebook';
