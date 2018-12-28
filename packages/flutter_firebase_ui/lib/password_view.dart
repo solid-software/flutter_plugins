@@ -116,8 +116,8 @@ class _PasswordViewState extends State<PasswordView> {
 
       if (user != null) {
         Navigator.of(context).pop(true);
-        isSubmitStarted = false;
       }
+      isSubmitStarted = false;
     }
   }
 }
