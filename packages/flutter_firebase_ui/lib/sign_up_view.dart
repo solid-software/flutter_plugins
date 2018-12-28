@@ -150,9 +150,13 @@ class _SignUpViewState extends State<SignUpView> {
         String msg;
         if (e.message == "The email address is badly formatted.") {
           msg = FFULocalizations.of(context).emailIsNotValid;
-        } else {
+        } else if (e.message ==
+            "The given password is invalid. [ Password should be at least 6 characters ]") {
           msg = FFULocalizations.of(context).passwordLengthMessage;
+        } else {
+          msg = e.message;
         }
+
         print(e.details);
         //TODO improve errors catching
 

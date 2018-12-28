@@ -34,13 +34,13 @@ class FirstPage extends StatefulWidget {
   _FirstPage createState() => new _FirstPage();
 }
 
+// ignore: mixin_inherits_from_not_object
 class _FirstPage extends State<FirstPage> with DrawerStateMixin {
   List<Widget> buildActions() => [
         new IconButton(
             icon: new Icon(Icons.chevron_right),
             onPressed: () => Navigator.of(context).push(
-                new MaterialPageRoute<Null>(
-                    builder: (BuildContext context) => new SecondPage()))),
+                new MaterialPageRoute<Null>(builder: (BuildContext context) => new SecondPage()))),
       ];
 
   @override
@@ -72,6 +72,7 @@ class SecondPage extends StatefulWidget {
   _SecondPage createState() => new _SecondPage();
 }
 
+// ignore: mixin_inherits_from_not_object
 class _SecondPage extends State<SecondPage> with DrawerStateMixin {
   @override
   Widget buildBody() {
@@ -144,8 +145,7 @@ class _ThirdPage extends State<ThirdPage> {
   bool _first = true;
 
   void updateDrawer() {
-    DrawerProvider.changeDrawer(
-        context, _first ? _drawerBuilder2 : _drawerBuilder);
+    DrawerProvider.changeDrawer(context, _first ? _drawerBuilder2 : _drawerBuilder);
     _first = !_first;
   }
 
@@ -204,8 +204,7 @@ Widget _userAccountDrawer(BuildContext context) => new UserAccountsDrawerHeader(
 var _firstPage = new DrawerDefinition(
     title: "First page",
     iconData: Icons.home,
-    widgetBuilder: (BuildContext context) =>
-        new FirstPage(title: "First Page"));
+    widgetBuilder: (BuildContext context) => new FirstPage(title: "First Page"));
 
 var _secondPage = new DrawerDefinition(
     title: "Second page",
@@ -221,8 +220,7 @@ var _thirdPage = new DrawerDefinition(
 var _fourthPage = new DrawerDefinition(
     title: "Fourth page",
     iconData: Icons.home,
-    widgetBuilder: (BuildContext context) =>
-        new FirstPage(title: "Fourth Page"));
+    widgetBuilder: (BuildContext context) => new FirstPage(title: "Fourth Page"));
 
 var _drawerBuilder = new DrawerHelper(
   drawerContents: [_firstPage, _secondPage, _thirdPage],
