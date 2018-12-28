@@ -17,6 +17,7 @@ class PasswordView extends StatefulWidget {
 class _PasswordViewState extends State<PasswordView> {
   TextEditingController _controllerEmail;
   TextEditingController _controllerPassword;
+  bool isSubmitStarted = false;
 
   @override
   initState() {
@@ -43,8 +44,8 @@ class _PasswordViewState extends State<PasswordView> {
                   controller: _controllerEmail,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
-                  decoration: new InputDecoration(
-                      labelText: FFULocalizations.of(context).emailLabel),
+                  decoration:
+                      new InputDecoration(labelText: FFULocalizations.of(context).emailLabel),
                 ),
                 //const SizedBox(height: 5.0),
                 new TextField(
@@ -53,8 +54,8 @@ class _PasswordViewState extends State<PasswordView> {
                   onSubmitted: _submit,
                   obscureText: true,
                   autocorrect: false,
-                  decoration: new InputDecoration(
-                      labelText: FFULocalizations.of(context).passwordLabel),
+                  decoration:
+                      new InputDecoration(labelText: FFULocalizations.of(context).passwordLabel),
                 ),
                 new SizedBox(height: 16.0),
                 new Container(
@@ -93,27 +94,30 @@ class _PasswordViewState extends State<PasswordView> {
   }
 
   _handleLostPassword() {
-    Navigator.of(context)
-        .push(new MaterialPageRoute<Null>(builder: (BuildContext context) {
+    Navigator.of(context).push(new MaterialPageRoute<Null>(builder: (BuildContext context) {
       return new TroubleSignIn(_controllerEmail.text);
     }));
   }
 
   _connexion(BuildContext context) async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    FirebaseUser user;
-    try {
-      user = await _auth.signInWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
-      print(user);
-    } catch (exception) {
-      //TODO improve errors catching
-      String msg = FFULocalizations.of(context).passwordInvalidMessage;
-      showErrorDialog(context, msg);
-    }
+    if (!isSubmitStarted) {
+      isSubmitStarted = true;
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      FirebaseUser user;
+      try {
+        user = await _auth.signInWithEmailAndPassword(
+            email: _controllerEmail.text, password: _controllerPassword.text);
+        print(user);
+      } catch (exception) {
+        //TODO improve errors catching
+        String msg = FFULocalizations.of(context).passwordInvalidMessage;
+        showErrorDialog(context, msg);
+      }
 
-    if (user != null) {
-      Navigator.of(context).pop(true);
+      if (user != null) {
+        Navigator.of(context).pop(true);
+        isSubmitStarted = false;
+      }
     }
   }
 }
