@@ -34,7 +34,6 @@ class FirstPage extends StatefulWidget {
   _FirstPage createState() => new _FirstPage();
 }
 
-// ignore: mixin_inherits_from_not_object
 class _FirstPage extends State<FirstPage> with DrawerStateMixin {
   List<Widget> buildActions() => [
         new IconButton(
@@ -72,7 +71,6 @@ class SecondPage extends StatefulWidget {
   _SecondPage createState() => new _SecondPage();
 }
 
-// ignore: mixin_inherits_from_not_object
 class _SecondPage extends State<SecondPage> with DrawerStateMixin {
   @override
   Widget buildBody() {
